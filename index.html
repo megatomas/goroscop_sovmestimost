@@ -95,19 +95,7 @@ loadCompatibilityData(data => {
     document.getElementById("zodiacSign1").addEventListener("change", populateSecondDropdown);
 
     // Load data from the JSON file and save it to a global variable
-    loadCompatibilityData(data => {
-        window.compatibilityData = data;
-        // Populate the first dropdown with zodiac signs
-        const zodiacSigns1 = Object.keys(data);
-        const select1 = document.getElementById("zodiacSign1");
-        zodiacSigns1.forEach(sign => {
-            const option = document.createElement("option");
-            option.value = sign;
-            option.textContent = sign;
-            select1.appendChild(option);
-        });
-        populateSecondDropdown(); // Initially populate the second dropdown based on the first dropdown's selection
-    });
+   
 </script>
 </body>
 </html>
