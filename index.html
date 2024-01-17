@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Совместимость знаков зодиака</title>
+      <link rel="stylesheet" type="text/css" href="styles.css"> <!-- Подключение стилей из файла styles.css -->
+
+</head>
+<body>
+    <h1>Совместимость знаков зодиака</h1>
+
+    <label for="zodiacSign1">Выберите первый знак зодиака:</label>
+    <select id="zodiacSign1">
+        <!-- Вставьте варианты знаков зодиака сюда -->
+    </select>
+
+    <label for="zodiacSign2">Выберите второй знак зодиака:</label>
+    <select id="zodiacSign2">
+        <!-- Вставьте варианты знаков зодиака сюда -->
+    </select>
+
+    <p>Совместимость: <span id="compatibility"></span></p>
+    <p>Описание: <span id="description"></span></p>
+
+<script>
+
+// Add event listeners for changes in the dropdowns
+document.getElementById("zodiacSign1").addEventListener("change", populateSecondDropdown);
+document.getElementById("zodiacSign2").addEventListener("change", calculateCompatibility);
+
+// Load data from the JSON file and save it to a global variable
+loadCompatibilityData(data => {
+    window.compatibilityData = data;
+    // Populate the first dropdown with zodiac signs
+    const zodiacSigns1 = Object.keys(data);
+    const select1 = document.getElementById("zodiacSign1");
+    zodiacSigns1.forEach(sign => {
+        const option = document.createElement("option");
+        option.value = sign;
+        option.textContent = sign;
+        select1.appendChild(option);
+    });
+    populateSecondDropdown(); // Initially populate the second dropdown based on the first dropdown's selection
+});
+    // Function to load data from the JSON file
+    function loadCompatibilityData(callback) {
+        fetch('compatibility.json')
+            .then(response => response.json())
+            .then(data => callback(data))
+            .catch(error => console.error('Error loading JSON file:', error));
+    }
+
+    // Function to handle the selection of zodiac signs and display compatibility and description
+    function calculateCompatibility() {
+        const zodiacSign1 = document.getElementById("zodiacSign1").value;
+        const zodiacSign2 = document.getElementById("zodiacSign2").value;
+
+        const compatibilityData = window.compatibilityData;
+        const compatibilityInfo = compatibilityData[zodiacSign1]["совместимость"][zodiacSign2];
+        const compatibility = compatibilityInfo["значение"];
+        const description = compatibilityInfo["описание"];
+
+        document.getElementById("compatibility").textContent = compatibility;
+        document.getElementById("description").textContent = description;
+    }
+
+    // Function to populate the second dropdown based on the first dropdown's selection
+     function populateSecondDropdown() {
+        const zodiacSign1 = document.getElementById("zodiacSign1").value;
+        console.log('Выбран знак зодиака:', zodiacSign1); // Отладочный лог
+
+        const compatibilityData = window.compatibilityData;
+        if (!compatibilityData[zodiacSign1]) {
+            console.error('Данные для знака не найдены:', zodiacSign1);
+            return;
+        }
+
+        const zodiacSigns2 = Object.keys(compatibilityData[zodiacSign1]["совместимость"]);
+        console.log('Знаки зодиака для второго списка:', zodiacSigns2); // Отладочный лог
+
+        const select2 = document.getElementById("zodiacSign2");
+        select2.innerHTML = ''; // Clear existing options
+
+        zodiacSigns2.forEach(sign => {
+            const option = document.createElement("option");
+            option.value = sign;
+            option.textContent = sign;
+            select2.appendChild(option);
+        });
+
+        calculateCompatibility(); // Calculate compatibility for the initial selection
+    }
+
+    // Add event listeners for changes in the dropdowns
+    document.getElementById("zodiacSign1").addEventListener("change", populateSecondDropdown);
+
+    // Load data from the JSON file and save it to a global variable
+    loadCompatibilityData(data => {
+        window.compatibilityData = data;
+        // Populate the first dropdown with zodiac signs
+        const zodiacSigns1 = Object.keys(data);
+        const select1 = document.getElementById("zodiacSign1");
+        zodiacSigns1.forEach(sign => {
+            const option = document.createElement("option");
+            option.value = sign;
+            option.textContent = sign;
+            select1.appendChild(option);
+        });
+        populateSecondDropdown(); // Initially populate the second dropdown based on the first dropdown's selection
+    });
+</script>
+</body>
+</html>
