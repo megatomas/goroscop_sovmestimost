@@ -7,7 +7,8 @@
 
 </head>
 <body>
-    <h1>Совместимость знаков зодиака</h1>
+    <div class="container"> <!-- Обёртка для содержимого -->
+        <h1>Совместимость знаков зодиака</h1>
 
     <label for="zodiacSign1">Выберите первый знак зодиака:</label>
     <select id="zodiacSign1">
@@ -21,6 +22,7 @@
 
     <p>Совместимость: <span id="compatibility"></span></p>
     <p>Описание: <span id="description"></span></p>
+    </div>
 
 <script>
 
@@ -95,7 +97,7 @@ loadCompatibilityData(data => {
     document.getElementById("zodiacSign1").addEventListener("change", populateSecondDropdown);
 
     // Load data from the JSON file and save it to a global variable
-   
+
 </script>
 </body>
 </html>

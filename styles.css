@@ -12,3 +12,37 @@ label {
     display: block;
     margin-bottom: 10px;
 }
+
+
+html, body {
+    height: 100%; /* Устанавливаем высоту на 100% для html и body */
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url('images/background.jpg'); /* Путь к вашему изображению */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed; /* Используйте fixed вместо absolute */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(255, 204, 255, 0.7); /* Затемнение (можно изменить непрозрачность) */
+    z-index: 1;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+    min-height: 100%; /* Устанавливаем минимальную высоту на 100% */
+}
+
+/* Стили для выпадающих списков и label остаются без изменений */
