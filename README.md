@@ -1,0 +1,1 @@
+# goroscop_sovmestimost
